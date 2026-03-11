@@ -19,7 +19,7 @@ export default function FAQ() {
         </div>
         <div>
           {COPY.faq.items.map((item, i) => (
-            <div key={i} className="border-b border-cloud/10 py-6">
+            <div key={i} className="border-b border-cloud/[0.07] py-6">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between text-left"

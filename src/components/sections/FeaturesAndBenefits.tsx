@@ -12,7 +12,7 @@ export default function FeaturesAndBenefits() {
             {COPY.featuresAndBenefits.headline}
           </h2>
         </div>
-        <div className="mt-16 divide-y divide-cloud/10">
+        <div className="mt-16 divide-y divide-cloud/[0.07]">
           {COPY.featuresAndBenefits.items.map((item, i) => (
             <div key={i} className="flex items-start justify-between py-8 gap-12">
               <span className="font-sans text-base font-medium text-cloud min-w-48">{item.feature}</span>

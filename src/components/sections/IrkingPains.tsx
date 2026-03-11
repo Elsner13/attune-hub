@@ -14,7 +14,7 @@ export default function IrkingPains() {
         </div>
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {COPY.irkingPains.pains.map((pain, i) => (
-            <div key={i} className="p-6 border border-cloud/10">
+            <div key={i} className="p-6 border border-cloud/[0.07]">
               <span className="text-xs text-mist tracking-widest font-sans">
                 {String(i + 1).padStart(2, '0')}
               </span>
