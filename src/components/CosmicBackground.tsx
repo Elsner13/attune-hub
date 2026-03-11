@@ -12,26 +12,26 @@ const SUN_Y_RATIO      = 0.44;
 // Orbital rings: { radiusRatio, speed, tilt, count, size, color, alpha }
 // radiusRatio is fraction of Math.min(w, h)
 const RINGS = [
-  { radiusRatio: 0.09, speed:  0.0028,  tilt: 0.18, count:  1, size: 3.4, color: [200, 200, 255] as [number,number,number], alpha: 0.9 },
-  { radiusRatio: 0.15, speed:  0.0019,  tilt: 0.10, count:  2, size: 2.6, color: [180, 210, 240] as [number,number,number], alpha: 0.75 },
-  { radiusRatio: 0.22, speed:  0.0013,  tilt: 0.25, count:  3, size: 2.0, color: [160, 195, 230] as [number,number,number], alpha: 0.65 },
-  { radiusRatio: 0.31, speed:  0.00085, tilt: 0.08, count:  4, size: 1.6, color: [140, 180, 220] as [number,number,number], alpha: 0.55 },
-  { radiusRatio: 0.40, speed:  0.00055, tilt: 0.32, count:  6, size: 1.2, color: [120, 160, 200] as [number,number,number], alpha: 0.45 },
-  { radiusRatio: 0.52, speed:  0.00032, tilt: 0.15, count: 10, size: 0.9, color: [100, 140, 185] as [number,number,number], alpha: 0.35 },
-  { radiusRatio: 0.65, speed:  0.00018, tilt: 0.42, count: 18, size: 0.7, color:  [80, 120, 170] as [number,number,number], alpha: 0.25 },
+  { radiusRatio: 0.09, speed:  0.0028,  tilt: 0.18, count:  1, size: 3.4, color: [212, 228, 240] as [number,number,number], alpha: 0.9 },
+  { radiusRatio: 0.15, speed:  0.0019,  tilt: 0.10, count:  2, size: 2.6, color: [180, 205, 235] as [number,number,number], alpha: 0.75 },
+  { radiusRatio: 0.22, speed:  0.0013,  tilt: 0.25, count:  3, size: 2.0, color: [155, 190, 225] as [number,number,number], alpha: 0.65 },
+  { radiusRatio: 0.31, speed:  0.00085, tilt: 0.08, count:  4, size: 1.6, color: [120, 160, 205] as [number,number,number], alpha: 0.55 },
+  { radiusRatio: 0.40, speed:  0.00055, tilt: 0.32, count:  6, size: 1.2, color: [100, 140, 190] as [number,number,number], alpha: 0.45 },
+  { radiusRatio: 0.52, speed:  0.00032, tilt: 0.15, count: 10, size: 0.9, color:  [78, 120, 175] as [number,number,number], alpha: 0.35 },
+  { radiusRatio: 0.65, speed:  0.00018, tilt: 0.42, count: 18, size: 0.7, color:  [60, 100, 160] as [number,number,number], alpha: 0.25 },
 ];
 
 // Colors
-const BG      = '#080C0F';
-const SKY_R   = 79;
-const SKY_G   = 195;
-const SKY_B   = 247;
-const CLOUD_R = 234;
-const CLOUD_G = 239;
-const CLOUD_B = 239;
-const MIST_R  = 191;
-const MIST_G  = 201;
-const MIST_B  = 209;
+const BG      = '#00002A';
+const SKY_R   = 78;
+const SKY_G   = 164;
+const SKY_B   = 204;
+const CLOUD_R = 212;
+const CLOUD_G = 228;
+const CLOUD_B = 240;
+const MIST_R  = 78;
+const MIST_G  = 106;
+const MIST_B  = 156;
 
 // ── Type definitions ──────────────────────────────────────────────
 interface Star {

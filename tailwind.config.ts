@@ -9,15 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        cloud:   "#EAEFEF",
-        mist:    "#BFC9D1",
-        slate:   "#25343F",
-        sky:     "#4FC3F7",
-        void:    "#080C0F",
-        ink:     "#EAEFEF",
-        bone:    "#080C0F",
-        ash:     "#BFC9D1",
-        ember:   "#4FC3F7",
+        cloud:   "#D4E4F0",
+        mist:    "#4E6A9C",
+        slate:   "#1A3F75",
+        sky:     "#4EA4CC",
+        void:    "#00002A",
+        ink:     "#D4E4F0",
+        bone:    "#00002A",
+        ash:     "#4E6A9C",
+        ember:   "#4EA4CC",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
