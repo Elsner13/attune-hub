@@ -1,7 +1,7 @@
 export const COPY = {
   nav: {
     logo: "ATTUNE",
-    links: ["Signal/Noise", "The Course", "Community", "About"],
+    links: ["The Signal", "Foundations", "Community", "About"],
     cta: "Get Started",
   },
   hero: {
