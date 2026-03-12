@@ -67,7 +67,7 @@ export const COPY = {
   socialProof: {
     tag: "What People Say",
     headline: "",
-    testimonials: [],
+    testimonials: [] as { quote: string; name: string; title: string }[],
   },
   faq: {
     tag: "FAQ",
