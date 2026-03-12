@@ -7,7 +7,6 @@ import UniqueMechanism from '@/components/sections/UniqueMechanism';
 import FeaturesAndBenefits from '@/components/sections/FeaturesAndBenefits';
 import QuantifiableOutcome from '@/components/sections/QuantifiableOutcome';
 import RiskReversal from '@/components/sections/RiskReversal';
-import SocialProof from '@/components/sections/SocialProof';
 import FAQ from '@/components/sections/FAQ';
 import FinalCTA from '@/components/sections/FinalCTA';
 import Footer from '@/components/sections/Footer';
@@ -24,7 +23,6 @@ export default function Page() {
       <FeaturesAndBenefits />
       <QuantifiableOutcome />
       <RiskReversal />
-      <SocialProof />
       <FAQ />
       <FinalCTA />
       <Footer />
