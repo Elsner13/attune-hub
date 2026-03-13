@@ -5,7 +5,7 @@ interface TagProps {
 
 export default function Tag({ children, className = '' }: TagProps) {
   return (
-    <span className={`text-xs uppercase tracking-widest text-mist font-medium ${className}`}>
+    <span className={`text-xs uppercase tracking-widest text-mist font-sans font-medium ${className}`}>
       {children}
     </span>
   );

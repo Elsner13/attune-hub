@@ -6,7 +6,7 @@ import Cursor from '@/components/Cursor';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['300', '400', '500', '600'],
   style: ['normal', 'italic'],
   variable: '--font-serif',
   display: 'swap',
@@ -14,7 +14,7 @@ const cormorant = Cormorant_Garamond({
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['300', '400', '500'],
   variable: '--font-sans',
   display: 'swap',
 });

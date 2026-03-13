@@ -1,41 +1,41 @@
 'use client';
+
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { COPY } from '@/lib/constants';
 import SectionWrapper from '@/components/ui/SectionWrapper';
 import Tag from '@/components/ui/Tag';
+import Reveal from '@/components/ui/Reveal';
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
-
   return (
-    <SectionWrapper id="faq" dark={false}>
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-16">
+    <SectionWrapper id="faq">
+      <div className="text-center mb-16">
+        <Reveal>
           <Tag>{COPY.faq.tag}</Tag>
-          <h2 className="font-serif text-4xl md:text-5xl font-medium mt-4 text-cloud">
+          <h2 className="font-serif font-light text-4xl md:text-5xl text-cloud mt-4 leading-[1.1]">
             {COPY.faq.headline}
           </h2>
-        </div>
-        <div>
-          {COPY.faq.items.map((item, i) => (
-            <div key={i} className="border-b border-cloud/[0.07] py-6">
+        </Reveal>
+      </div>
+      <div className="max-w-3xl mx-auto divide-y divide-sky/[0.07]">
+        {COPY.faq.items.map((item, i) => (
+          <Reveal key={i} delay={i * 0.05}>
+            <div className="py-6">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between text-left"
               >
                 <span className="font-sans text-base font-medium text-cloud">{item.q}</span>
-                <ChevronDown
-                  size={18}
-                  className={`text-mist transition-transform flex-shrink-0 ml-4 ${open === i ? 'rotate-180' : ''}`}
-                />
+                <ChevronDown size={16} className={`text-mist transition-transform shrink-0 ml-4 ${open === i ? 'rotate-180' : ''}`} />
               </button>
               {open === i && (
-                <p className="font-sans text-base text-mist leading-relaxed mt-4">{item.a}</p>
+                <p className="font-sans font-light text-base text-mist mt-4 leading-[1.8]">{item.a}</p>
               )}
             </div>
-          ))}
-        </div>
+          </Reveal>
+        ))}
       </div>
     </SectionWrapper>
   );

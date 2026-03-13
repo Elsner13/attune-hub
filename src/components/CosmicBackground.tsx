@@ -2,43 +2,39 @@
 
 import { useEffect, useRef } from 'react';
 
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 //  CONSTANTS
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 
-const BG           = '#000008';
-const STAR_COUNT   = 500;
-const DUST_COUNT   = 160;
-const NEBULA_COUNT = 5;
+const BG           = '#040E0B';
+const STAR_COUNT   = 250;
+const DUST_COUNT   = 60;
+const NEBULA_COUNT = 2;
 const SS_MIN_MS    = 2500;
 const SS_MAX_MS    = 7000;
 
-const SKY   = [78,  164, 204] as const;
-const CLOUD = [212, 228, 240] as const;
-const MIST  = [78,  106, 156] as const;
+const SKY   = [160, 230, 196] as const;
+const CLOUD = [240, 240, 236] as const;
+const MIST  = [138, 158, 148] as const;
 
 const NEBULA_COLORS: Array<[number,number,number]> = [
-  [20,  40, 110],
-  [10,  70, 120],
-  [35,  20,  90],
-  [15,  90, 110],
-  [50,  30, 130],
+  [20,  80, 50],
+  [10,  60, 45],
 ];
 
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 //  INTERFACES
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 
 interface Star {
   x: number; y: number; r: number;
   base: number; alpha: number;
   phase: number; phaseSpd: number;
   sky: boolean;
-  // wandering
-  heading: number;      // current direction in radians
-  headingDrift: number; // how fast the heading curves (tiny, gives arcs)
-  spd: number;          // px per frame — tiered by "depth"
-  layer: number;        // 0 = far/slow, 1 = mid, 2 = close/fast
+  heading: number;
+  headingDrift: number;
+  spd: number;
+  layer: number;
 }
 
 interface Dust {
@@ -66,26 +62,22 @@ interface ShootingStar {
   age: number; life: number;
 }
 
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 //  HELPERS
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 
 const rnd   = () => Math.random();
 const rng   = (a: number, b: number) => a + rnd() * (b - a);
-const lerp  = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 function initStars(W: number, H: number): Star[] {
   return Array.from({ length: STAR_COUNT }, () => {
-    // Assign depth layer — more distant stars are dimmer and smaller
     const layer = rnd() < 0.55 ? 0 : rnd() < 0.7 ? 1 : 2;
 
-    // Layer characteristics
     const layerR    = [rng(0.12, 0.5),  rng(0.4,  0.9),  rng(0.7, 1.4)][layer];
     const layerBase = [rng(0.05, 0.25), rng(0.15, 0.45), rng(0.25, 0.6)][layer];
-    // Closer stars drift faster — they feel nearer
-    const spd       = [rng(0.008, 0.025), rng(0.02, 0.055), rng(0.04, 0.1)][layer];
-    // Heading drift is tiny — creates gentle arcing paths
+    // Speeds reduced by 40%
+    const spd       = [rng(0.0048, 0.015), rng(0.012, 0.033), rng(0.024, 0.06)][layer];
     const headingDrift = rng(-0.003, 0.003);
 
     return {
@@ -93,7 +85,7 @@ function initStars(W: number, H: number): Star[] {
       r: layerR,
       base: layerBase, alpha: layerBase,
       phase: rnd() * Math.PI * 2,
-      phaseSpd: rng(0.001, 0.007),
+      phaseSpd: rng(0.0006, 0.0042),
       sky: rnd() < 0.05,
       heading: rnd() * Math.PI * 2,
       headingDrift,
@@ -108,7 +100,7 @@ function initDust(W: number, H: number): Dust[] {
     const base = rng(0.15, 0.55);
     return {
       x: rnd() * W, y: rnd() * H,
-      vx: rng(-0.12, 0.12), vy: rng(-0.09, 0.09),
+      vx: rng(-0.072, 0.072), vy: rng(-0.054, 0.054),
       r: rng(0.4, 1.8),
       alpha: base, base,
       sky: rnd() < 0.08,
@@ -123,11 +115,11 @@ function initNebulae(W: number, H: number): Nebula[] {
       x: rnd() * W, y: rnd() * H,
       rx: rng(W * 0.18, W * 0.38),
       ry: rng(H * 0.15, H * 0.32),
-      vx: rng(-0.05, 0.05), vy: rng(-0.04, 0.04),
+      vx: rng(-0.03, 0.03), vy: rng(-0.024, 0.024),
       color: NEBULA_COLORS[i % NEBULA_COLORS.length],
       base, alpha: base,
       phase: rnd() * Math.PI * 2,
-      phaseSpd: rng(0.0005, 0.002),
+      phaseSpd: rng(0.0003, 0.0012),
       resonance: 0,
     };
   });
@@ -136,7 +128,7 @@ function initNebulae(W: number, H: number): Nebula[] {
 function spawnSS(W: number, H: number): ShootingStar {
   const edge = Math.floor(rnd() * 4);
   let x = 0, y = 0;
-  let vx = rng(4, 9), vy = rng(2, 6);
+  let vx = rng(2.4, 5.4), vy = rng(1.2, 3.6);
   if (edge === 0)      { x = rnd() * W; y = -10;    vy =  Math.abs(vy); }
   else if (edge === 1) { x = W + 10;    y = rnd()*H; vx = -Math.abs(vx); }
   else if (edge === 2) { x = rnd() * W; y = H + 10;  vy = -Math.abs(vy); }
@@ -145,9 +137,9 @@ function spawnSS(W: number, H: number): ShootingStar {
   return { x, y, vx, vy, len: rng(80, 200), alpha: rng(0.7, 1.0), r, g, b, age: 0, life: rng(400, 900) };
 }
 
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 //  COMPONENT
-// ─────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------
 
 export default function CosmicBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -192,7 +184,7 @@ export default function CosmicBackground() {
       ctx.fillStyle = BG;
       ctx.fillRect(0, 0, W, H);
 
-      // ── Nebulae ───────────────────────────────────────────────
+      // -- Nebulae --
       ctx.save();
       ctx.globalCompositeOperation = 'lighter';
       for (const n of nebulae) {
@@ -202,8 +194,8 @@ export default function CosmicBackground() {
         if (n.x + n.rx > W + n.rx * 0.5) n.vx -= 0.003;
         if (n.y - n.ry < -n.ry * 0.5) n.vy += 0.003;
         if (n.y + n.ry > H + n.ry * 0.5) n.vy -= 0.003;
-        n.vx = clamp(n.vx, -0.08, 0.08);
-        n.vy = clamp(n.vy, -0.07, 0.07);
+        n.vx = clamp(n.vx, -0.048, 0.048);
+        n.vy = clamp(n.vy, -0.042, 0.042);
         n.resonance = Math.max(0, n.resonance - 0.002);
         n.alpha = n.base + Math.sin(n.phase) * (n.base * 0.5) + n.resonance;
 
@@ -224,20 +216,16 @@ export default function CosmicBackground() {
       }
       ctx.restore();
 
-      // ── Stars — wander ────────────────────────────────────────
+      // -- Stars -- wander
       for (const s of stars) {
-        // Twinkle
         s.phase += s.phaseSpd;
         s.alpha  = s.base + Math.sin(s.phase) * (s.base * 0.4);
 
-        // Wander: heading drifts slowly, giving gentle arcing paths.
-        // Small random jitter each frame keeps it from feeling mechanical.
         s.heading += s.headingDrift + (rnd() - 0.5) * 0.0008;
 
         s.x += Math.cos(s.heading) * s.spd;
         s.y += Math.sin(s.heading) * s.spd;
 
-        // Soft wrap — star re-enters from opposite edge
         if (s.x < -2) s.x = W + 2;
         if (s.x > W + 2) s.x = -2;
         if (s.y < -2) s.y = H + 2;
@@ -250,7 +238,7 @@ export default function CosmicBackground() {
         ctx.fill();
       }
 
-      // ── Dust ──────────────────────────────────────────────────
+      // -- Dust --
       for (const d of dust) {
         d.vx *= 0.998; d.vy *= 0.998;
         d.x += d.vx;   d.y += d.vy;
@@ -263,7 +251,7 @@ export default function CosmicBackground() {
         ctx.fill();
       }
 
-      // ── Shooting stars ────────────────────────────────────────
+      // -- Shooting stars --
       for (let i = shots.length - 1; i >= 0; i--) {
         const ss = shots[i];
         ss.age += dt;

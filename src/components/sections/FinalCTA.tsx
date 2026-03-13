@@ -1,22 +1,29 @@
 import { COPY } from '@/lib/constants';
 import SectionWrapper from '@/components/ui/SectionWrapper';
-import Button from '@/components/ui/Button';
 import Tag from '@/components/ui/Tag';
+import Button from '@/components/ui/Button';
+import Reveal from '@/components/ui/Reveal';
 
 export default function FinalCTA() {
   return (
-    <SectionWrapper id="start" dark={true}>
+    <SectionWrapper id="cta">
       <div className="max-w-3xl mx-auto text-center">
-        <Tag className="text-cloud/50">{COPY.finalCTA.tag}</Tag>
-        <h2 className="font-serif text-5xl md:text-6xl text-cloud font-medium mt-4 leading-tight">
-          {COPY.finalCTA.headline}
-        </h2>
-        <p className="font-sans text-lg text-cloud/70 mt-6 max-w-xl mx-auto">
-          {COPY.finalCTA.body}
-        </p>
-        <div className="mt-10">
-          <Button variant="primary" size="lg">{COPY.finalCTA.cta}</Button>
-        </div>
+        <Reveal>
+          <Tag className="text-mist/50">{COPY.finalCTA.tag}</Tag>
+          <h2 className="font-serif font-light text-4xl md:text-5xl text-cloud mt-4 leading-[1.1]">
+            {COPY.finalCTA.headline}
+          </h2>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <p className="font-sans font-light text-base text-mist mt-8 max-w-xl mx-auto leading-[1.8]">
+            {COPY.finalCTA.body}
+          </p>
+        </Reveal>
+        <Reveal delay={0.25}>
+          <div className="mt-12">
+            <Button variant="primary" size="lg" className="px-10 py-4 tracking-wide">{COPY.finalCTA.cta}</Button>
+          </div>
+        </Reveal>
       </div>
     </SectionWrapper>
   );

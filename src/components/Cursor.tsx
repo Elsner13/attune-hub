@@ -56,31 +56,31 @@ export default function Cursor() {
     };
   }, []);
 
-  const ringSize = hovered ? 56 : 36;
+  const ringSize = hovered ? 44 : 28;
 
   return (
     <>
-      {/* Dot — tracks exactly */}
+      {/* Dot -- tracks exactly */}
       <div
         ref={dotRef}
         style={{
           position:       'fixed',
           top:            0,
           left:           0,
-          width:          6,
-          height:         6,
+          width:          5,
+          height:         5,
           borderRadius:   '50%',
-          background:     '#ffffff',
+          background:     'rgb(160,230,196)',
           mixBlendMode:   'difference',
           pointerEvents:  'none',
           zIndex:         9999,
-          marginLeft:     -3,
-          marginTop:      -3,
+          marginLeft:     -2.5,
+          marginTop:      -2.5,
           willChange:     'transform',
         }}
       />
 
-      {/* Ring — lerps behind, expands on hover */}
+      {/* Ring -- lerps behind, expands on hover */}
       <div
         ref={ringRef}
         style={{
@@ -90,8 +90,8 @@ export default function Cursor() {
           width:          ringSize,
           height:         ringSize,
           borderRadius:   '50%',
-          border:         '1.5px solid #ffffff',
-          background:     hovered ? 'rgba(255,255,255,0.08)' : 'transparent',
+          border:         '1px solid rgb(160,230,196)',
+          background:     hovered ? 'rgba(160,230,196,0.08)' : 'transparent',
           mixBlendMode:   'difference',
           pointerEvents:  'none',
           zIndex:         9998,

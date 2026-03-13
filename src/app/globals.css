@@ -3,17 +3,27 @@
 @tailwind utilities;
 
 body {
-  background-color: #00002A;
-  color: #D4E4F0;
+  background-color: #061612;
+  color: #f0f0ec;
+  font-feature-settings: 'kern' 1;
 }
 
 ::selection {
-  background: #4EA4CC;
-  color: #00002A;
+  background: #a0e6c4;
+  color: #061612;
 }
 
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: none !important;
+}
+
+@keyframes gentle-float {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(6px); opacity: 0.7; }
+}
+
+.animate-gentle-float {
+  animation: gentle-float 2.5s ease-in-out infinite;
 }
